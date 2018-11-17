@@ -1,3 +1,19 @@
 h1 = "#{Restaurant.model_name.human}一覧"
 
 = link_to '新規登録', new_restaurant_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Restaurant.human_attribute_name(:name)
+      th= Restaurant.human_attribute_name(:created_at)
+      th
+  tbody
+    - @restaurants.each do |restaurant|
+      tr
+        td= link_to restaurant.name, restaurant
+        td= restaurant.created_at
+        td
+          = link_to '編集', edit_restaurant_path(restaurant), class: 'btn btn-primary mr-3'
+          = link_to '削除', restaurant, method: :delete, data: { confirm: "タスク「#{restaurant.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
