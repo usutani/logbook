@@ -16,15 +16,21 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    restaurant = Restaurant.new(restaurant_params)
-    restaurant.save!
-    redirect_to restaurants_url, notice: "#{Restaurant.model_name.human}「#{restaurant.name}」を登録しました。"
+    @restaurant = Restaurant.new(restaurant_params)
+    if @restaurant.save
+      redirect_to @restaurant, notice: "#{Restaurant.model_name.human}「#{@restaurant.name}」を登録しました。"
+    else
+      render :new
+    end
   end
 
   def update
-    restaurant = Restaurant.find(params[:id])
-    restaurant.update!(restaurant_params)
-    redirect_to restaurants_url, notice: "#{Restaurant.model_name.human}「#{restaurant.name}」を更新しました。"
+    @restaurant = Restaurant.find(params[:id])
+    if @restaurant.update(restaurant_params)
+      redirect_to restaurants_url, notice: "#{Restaurant.model_name.human}「#{@restaurant.name}」を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy

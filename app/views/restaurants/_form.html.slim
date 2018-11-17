@@ -1,3 +1,8 @@
+- if restaurant.errors.present?
+  ul#error_explanation
+    - restaurant.errors.full_messages.each do |message|
+      li= message
+
 = form_with model: restaurant, local: true do |f|
   .form-group
     = f.label :name
