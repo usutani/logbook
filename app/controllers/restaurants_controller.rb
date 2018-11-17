@@ -27,6 +27,12 @@ class RestaurantsController < ApplicationController
     redirect_to restaurants_url, notice: "#{Restaurant.model_name.human}「#{restaurant.name}」を更新しました。"
   end
 
+  def destroy
+    restaurant = Restaurant.find(params[:id])
+    restaurant.destroy
+    redirect_to restaurants_url, notice: "#{Restaurant.model_name.human}「#{restaurant.name}」を削除しました。"
+  end
+
   private
 
   def restaurant_params
