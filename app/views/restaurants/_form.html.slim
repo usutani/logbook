@@ -1,0 +1,11 @@
+= form_with model: restaurant, local: true do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control', id: 'restaurant_name'
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: 'form-control', id: 'restaurant_url'
+  .form-group
+    = f.label :note
+    = f.text_area :note, rows: 5, class: 'form-control', id: 'restaurant_note'
+  = f.submit nil, class: 'btn btn-primary'

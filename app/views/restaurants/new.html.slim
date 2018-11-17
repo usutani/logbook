@@ -1,2 +1,6 @@
-h1 Restaurants#new
-p Find me in app/views/restaurants/new.html.slim
+h1 = "#{Restaurant.model_name.human}の新規登録"
+
+.nav.justify-content-end
+  = link_to '一覧', restaurants_path, class: 'nav-link'
+
+= render partial: 'form', locals: { restaurant: @restaurant}
