@@ -1,2 +1,6 @@
-h1 Restaurants#edit
-p Find me in app/views/restaurants/edit.html.slim
+h1 = "#{Restaurant.model_name.human}の編集"
+
+.nav.justify-content-end
+  = link_to '一覧', restaurants_path, class: 'nav-link'
+
+= render partial: 'form', locals: { restaurant: @restaurant}
