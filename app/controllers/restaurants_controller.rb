@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   def index
-    @restaurants = Restaurant.all
+    @restaurants = current_user.restaurants
   end
 
   def show
@@ -16,7 +16,8 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant = current_user.restaurants.new(restaurant_params)
+
     if @restaurant.save
       redirect_to @restaurant, notice: "#{Restaurant.model_name.human}「#{@restaurant.name}」を登録しました。"
     else
@@ -40,7 +41,7 @@ class RestaurantsController < ApplicationController
   private
 
   def set_restaurant
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = current_user.restaurants.find(params[:id])
   end
 
   def restaurant_params
