@@ -12,13 +12,15 @@ describe '飲食店管理機能', type: :system do
     click_button 'ログインする'
   end
 
+  shared_examples_for 'ユーザーAが作成した飲食店が表示される' do
+    it { expect(page).to have_content '最初の飲食店' }
+  end
+
   describe '一覧表示機能' do
     context 'ユーザーAがログインしているとき' do
       let(:login_user) { user_a }
 
-      it 'ユーザーAが作成した飲食店が表示される' do
-        expect(page).to have_content '最初の飲食店'
-      end
+      it_behaves_like 'ユーザーAが作成した飲食店が表示される'
     end
 
     context 'ユーザーBがログインしているとき' do
@@ -38,9 +40,7 @@ describe '飲食店管理機能', type: :system do
         visit restaurant_path(restaurant_a)
       end
 
-      it 'ユーザーAが作成した飲食店が表示される' do
-        expect(page).to have_content '最初の飲食店'
-      end
+      it_behaves_like 'ユーザーAが作成した飲食店が表示される'
     end
   end
 end
