@@ -43,4 +43,31 @@ describe '飲食店管理機能', type: :system do
       it_behaves_like 'ユーザーAが作成した飲食店が表示される'
     end
   end
+
+  describe '新規作成機能' do
+    let(:login_user) { user_a }
+    let(:restaurant_name) { '新規に登録した飲食店' } # デフォルトとして設定
+
+    before do
+      visit new_restaurant_path
+      fill_in '店名', with: restaurant_name
+      click_button '登録する'
+    end
+
+    context '新規作成画面で店名を入力したとき' do
+      it '正常に登録される' do
+        expect(page).to have_selector '.alert-success', text: '新規に登録した飲食店'
+      end
+    end
+
+    context '新規作成画面で店名を入力しなかったとき' do
+      let(:restaurant_name) { '' }
+
+      it 'エラーとなる' do
+        within '#error_explanation' do
+          expect(page).to have_content '店名を入力してください'
+        end
+      end
+    end
+  end
 end
